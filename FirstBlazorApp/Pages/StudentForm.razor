@@ -1,0 +1,91 @@
+﻿@page "/student-form"
+@using FirstBlazorApp.Data
+
+<h3>Student Form</h3>
+
+<EditForm Model="@S1" OnValidSubmit="@HandleValidSubmit">
+    <div class="form-group">
+        <label for="FullName">Full Name:</label>
+        <InputText id="FullName" @bind-Value="S1.FullName" class="form-control" />
+
+    </div>
+
+    <div class="form-group">
+        <label for="PhoneNumber">Phone Number:</label>
+        <InputText id="PhoneNumber" @bind-Value="S1.PhoneNumber" class="form-control" />
+
+    </div>
+
+    <div class="form-group">
+        <label for="Semester">Semester:</label>
+        <InputNumber id="Semester" @bind-Value="S1.Semester" class="form-control" />
+
+    </div>
+
+
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+</EditForm>
+
+@if (Students.Count > 0)
+{
+    <h4>Student List:</h4>
+    <ul>
+        @foreach (var student in Students)
+        {
+            <li>@student.FullName - Semester: @student.Semester</li>
+        }
+    </ul>
+}
+
+@code {
+    private Student S1 = new Student();
+    private List<Student> Students = new List<Student>();
+    string p1;
+
+    private void HandleValidSubmit()
+    {
+        // Set Guid for the new student
+        S1.Guid = Guid.NewGuid();
+
+        // Add the new student to the list
+        Students.Add(new Student
+            {
+                FullName = S1.FullName,
+                PhoneNumber = S1.PhoneNumber,
+                Semester = S1.Semester,
+                Guid = S1.Guid
+            });
+
+        // string newPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+        //  string appDataDirectory = Path.Combine(newPath, Student.FullName);
+        string p1 = "/home/sugam/Documents/BlazorAppOutputs";
+        string file = Path.Combine(p1, $"{S1.FullName}-{S1.Guid}.txt");
+
+    // Ensure the directory exists or create it
+        if (!Directory.Exists(p1))
+        {
+            try
+            {
+                Directory.CreateDirectory(p1);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error creating directory: {ex.Message}");
+    // Handle the exception appropriately
+            }
+        }
+
+
+        string details = "Name: " + S1.FullName + "\nPhone: " + S1.PhoneNumber + "\nSem: " + S1.Semester
+        + "\nGUID: " + S1.Guid;
+
+        File.WriteAllText(file, details);
+
+
+        // Clear the form for the next entry
+        S1 = new Student();
+    }
+
+
+}
