@@ -1,5 +1,6 @@
 ﻿@page "/student-form"
 @using FirstBlazorApp.Data
+@using System.Runtime.InteropServices
 
 <h3>Student Form</h3>
 
@@ -59,7 +60,32 @@
 
         // string newPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
         //  string appDataDirectory = Path.Combine(newPath, Student.FullName);
-        string p1 = "/home/sugam/Documents/BlazorAppOutputs";
+        
+        // detect the path of the file by os
+        string p1;
+        
+        // For Windows
+        if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+        {
+            p1 = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+        }
+        // For Linux
+        else if(RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+        {
+            p1 = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+        }
+        // For Mac
+        else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+        {
+            p1 = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+        }
+        else
+        {
+            p1 = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+        }
+        
+        
+        // string p1 = "/home/sugam/Documents/BlazorAppOutputs";
         string file = Path.Combine(p1, $"{S1.FullName}-{S1.Guid}.txt");
 
     // Ensure the directory exists or create it
