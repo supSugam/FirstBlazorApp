@@ -1,0 +1,48 @@
+@page "/studentdetail"
+@using FirstBlazorApp.Data
+
+<h3>StudentDetail</h3>
+
+<div class="form-group">
+    <label for="name">Full Name:</label>
+    <InputText id="name" @bind-Value="FullNameToGetDetail" class="form-control" />
+</div>
+
+<button class="btn btn-primary" @onclick="ShowStudentDetail">Detail</button>
+
+
+
+@if (StudentsWithGivenName!=null && StudentsWithGivenName.Count>0)
+{
+    foreach(Student s in StudentsWithGivenName)
+    {
+        <li>Name- @s.FullName Phone- @s.PhoneNumber</li>
+    }
+}
+@code {
+    string FullNameToGetDetail;
+    Student s2;
+    List<Student> StudentsWithGivenName;
+
+    string path = "D:\\Tutorial\\ForWeek-6\\AllStudents.json";
+    private void ShowStudentDetail()
+    {
+        if (!File.Exists(path))
+        {
+            //we have nothing to print
+        }
+        else
+        {
+            string jsonFromFile = File.ReadAllText(path);
+            {
+                AllStudentsList list_s = JsonSerializer.Deserialize<AllStudentsList>(jsonFromFile);
+
+                StudentsWithGivenName = list_s.AllStudents.Where(s => s.FullName.Equals(FullNameToGetDetail)).ToList();
+
+            }
+          
+
+        }
+
+    }
+}
