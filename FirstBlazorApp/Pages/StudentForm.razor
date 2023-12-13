@@ -140,80 +140,10 @@
         string detailsJson = JsonSerializer.Serialize(S1);
         File.WriteAllText(individualFile, detailsJson);
     // Clear the form for the next entry
+        
 
-    StoreToACommonJson(S1);
+        StoreToACommonJson(S1);
         S1 = new Student();
     }
-
-
-
-    // private void HandleValidSubmit()
-    // {
-    //     // Set Guid for the new student
-    //     S1.Guid = Guid.NewGuid();
-    //
-    //     // Add the new student to the list
-    //     Students.Add(new Student
-    //         {
-    //             FullName = S1.FullName,
-    //             PhoneNumber = S1.PhoneNumber,
-    //             Semester = S1.Semester,
-    //             Guid = S1.Guid
-    //         });
-    //
-    //     // string newPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-    //     //  string appDataDirectory = Path.Combine(newPath, Student.FullName);
-    //     
-    //     // detect the path of the file by os
-    //     string p1;
-    //     
-    //     // For Windows
-    //     if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-    //     {
-    //         p1 = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-    //     }
-    //     // For Linux
-    //     else if(RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
-    //     {
-    //         p1 = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
-    //     }
-    //     // For Mac
-    //     else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
-    //     {
-    //         p1 = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
-    //     }
-    //     else
-    //     {
-    //         p1 = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
-    //     }
-    //     p1 = Path.Combine(p1, "Documents", "BlazorAppOutputs");
-    //     
-    //     // string p1 = "/home/sugam/Documents/BlazorAppOutputs";
-    //     string file = Path.Combine(p1, $"{S1.FullName}-{S1.Guid}.txt");
-    //
-    // // Ensure the directory exists or create it
-    //     if (!Directory.Exists(p1))
-    //     {
-    //         try
-    //         {
-    //             Directory.CreateDirectory(p1);
-    //         }
-    //         catch (Exception ex)
-    //         {
-    //             Console.WriteLine($"Error creating directory: {ex.Message}");
-    // // Handle the exception appropriately
-    //         }
-    //     }
-    //
-    //     string details = "Name: " + S1.FullName + "\nPhone: " + S1.PhoneNumber + "\nSem: " + S1.Semester
-    //     + "\nGUID: " + S1.Guid;
-    //
-    //     File.WriteAllText(file, details);
-    //
-    //
-    //     // Clear the form for the next entry
-    //     S1 = new Student();
-    // }
-}
 
 }

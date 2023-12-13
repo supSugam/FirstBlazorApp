@@ -1,34 +1,52 @@
-@page "/studentdetail"
+@page "/student-details"
 @using FirstBlazorApp.Data
 
-<h3>StudentDetail</h3>
+<div class="d-flex flex-column gap-2">
+    
+    
+<h3>Student Details</h3>
 
 <div class="form-group">
     <label for="name">Full Name:</label>
     <InputText id="name" @bind-Value="FullNameToGetDetail" class="form-control" />
 </div>
 
-<button class="btn btn-primary" @onclick="ShowStudentDetail">Detail</button>
+<button class="btn btn-primary" @onclick="ShowStudentDetail">Get Details</button>
+</div>
 
 
-
-@if (StudentsWithGivenName!=null && StudentsWithGivenName.Count>0)
-{
-    foreach(Student s in StudentsWithGivenName)
+<div class="d-flex flex-column gap-3 my-4">
+    <h3>Student Details</h3>
+<ul>
+    @if (StudentsWithGivenName!=null && StudentsWithGivenName.Count>0)
     {
-        <li>Name- @s.FullName Phone- @s.PhoneNumber</li>
+        foreach(Student s in StudentsWithGivenName)
+        {
+            <li>Name- @s.FullName</li>
+            <li>Semester- @s.Semester</li>
+            <li>
+                Phone- @s.PhoneNumber
+            </li>
+        }
     }
-}
+    else
+    {
+        <p>No Student Found</p>
+    }
+</ul>
+</div>
+
 @code {
     string FullNameToGetDetail;
     Student s2;
     List<Student> StudentsWithGivenName;
 
-    string path = "D:\\Tutorial\\ForWeek-6\\AllStudents.json";
+    string path = Path.Combine(Helpers.GetPathByOs(),"Documents","BlazorAppOutputs","AllStudents.json");
     private void ShowStudentDetail()
     {
         if (!File.Exists(path))
         {
+            Console.WriteLine(path);
             //we have nothing to print
         }
         else
